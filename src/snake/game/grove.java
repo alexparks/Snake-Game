@@ -6,7 +6,10 @@
 package snake.game;
 
 import environment.Environment;
+import grid.Grid;
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
@@ -15,6 +18,13 @@ import java.awt.event.MouseEvent;
  * @author Alex Parks
  */
 public class Grove extends Environment {
+    
+    private Grid grid;
+    
+    
+    public Grove(){
+        this.grid = new Grid(50, 30, 50, 50, new Point(100, 100), Color.BLACK);
+    }
 
     @Override
     public void initializeEnvironment() {
@@ -43,6 +53,14 @@ public class Grove extends Environment {
 
     @Override
     public void paintEnvironment(Graphics graphics) {
+       
+        
+        
+        
+        
+        if (grid != null) {
+            grid.paintComponent(graphics);
+        }
         
     }
     
