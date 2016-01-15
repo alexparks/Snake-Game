@@ -18,6 +18,7 @@ public class SnakeGame {
      */
     public static void main(String[] args) {
         ApplicationStarter.run("Alex's Snake Game", new Grove());
+        
     }
     
 }

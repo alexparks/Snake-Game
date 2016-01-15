@@ -17,14 +17,18 @@ import java.awt.event.MouseEvent;
  *
  * @author Alex Parks
  */
-public class Grove extends Environment {
+public class Grove extends Environment implements LocationValidatorInt {
     
     private Grid grid;
+   
     
     
     public Grove(){
-        this.grid = new Grid(50, 30, 50, 50, new Point(100, 100), Color.BLACK);
+        
+        this.grid = new Grid(50, 30, 50, 50, new Point(100, 100), Color.YELLOW);
+        this.setBackground(Color.BLACK);
     }
+    
 
     @Override
     public void initializeEnvironment() {
@@ -38,6 +42,7 @@ public class Grove extends Environment {
 
     @Override
     public void keyPressedHandler(KeyEvent e) {
+        
         
     }
 
@@ -56,12 +61,19 @@ public class Grove extends Environment {
        
         
         
-        
+     
         
         if (grid != null) {
             grid.paintComponent(graphics);
         }
         
+    }
+
+    @Override
+    public Point validate(Point proposedLocation) {
+
+        
+        return proposedLocation;
     }
     
 }
