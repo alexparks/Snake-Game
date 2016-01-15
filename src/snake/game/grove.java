@@ -58,8 +58,13 @@ public class Grove extends Environment implements LocationValidatorInt {
 
     @Override
     public void paintEnvironment(Graphics graphics) {
-       
-        
+        graphics.setColor(Color.darkGray);
+        graphics.fillRect(0, 0, 100, 1700);
+        graphics.fillRect(0, 0, 2700, 100);
+        graphics.fillRect(2600, 0, 100, 1700);
+        graphics.fillRect(0, 1600, 2700, 100);
+
+
         
      
         
