@@ -17,7 +17,7 @@ import java.awt.event.MouseEvent;
  *
  * @author Alex Parks
  */
-public class Grove extends Environment implements LocationValidatorInt {
+public class Grove extends Environment implements LocationValidatorInt, CellDataProviderIntf {
     
     private Grid grid;
     private Snake snake;
@@ -28,7 +28,7 @@ public class Grove extends Environment implements LocationValidatorInt {
         this.grid = new Grid(50, 30, 50, 50, new Point(100, 100), Color.DARK_GRAY);
         this.setBackground(Color.BLACK);
         
-        snake = new Snake(Direction.RIGHT, Color.WHITE, new Point(grid.getColumns() / 2, grid.getRows() / 2));
+        snake = new Snake(Direction.RIGHT, Color.WHITE, new Point(grid.getColumns() / 2, grid.getRows() / 2), this);
     }
     
 
@@ -74,6 +74,10 @@ public class Grove extends Environment implements LocationValidatorInt {
             grid.paintComponent(graphics);
         }
         
+        if (snake != null) {
+            snake.draw(graphics);
+        }
+        
     }
 
     @Override
@@ -82,5 +86,27 @@ public class Grove extends Environment implements LocationValidatorInt {
         
         return proposedLocation;
     }
+
+    //<editor-fold defaultstate="collapsed" desc="CellDataProviderIntf">
+    @Override
+    public int getCellWidth() {
+        return grid.getCellWidth();
+    }
+    
+    @Override
+    public int getCellHeight() {
+        return grid.getCellHeight();
+    }
+    
+    @Override
+    public int getCellSystemCoordinateX(Point cellLocation) {
+        return grid.getCellSystemCoordinate(cellLocation).x;
+    }
+    
+    @Override
+    public int getCellSystemCoordinateY(Point cellLocation) {
+        return grid.getCellSystemCoordinate(cellLocation).y;
+    }
+//</editor-fold>
     
 }

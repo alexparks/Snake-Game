@@ -6,6 +6,7 @@
 package snake.game;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -14,12 +15,23 @@ import java.util.ArrayList;
  * @author Alex Parks
  */
 public class Snake {
+
+    private final CellDataProviderIntf cellData;
+
+    public void draw(Graphics graphics){
+        graphics.setColor(bodyColor);
+        for(Point cellLocation: body){
+            graphics.fill3DRect(cellData.getCellSystemCoordinateX(cellLocation), 
+                    cellData.getCellSystemCoordinateY(cellLocation), cellData.getCellWidth(), cellData.getCellHeight(), true);
+        }
+    }
     
-    
-    public Snake(Direction direction, Color bodyColor, Point startLocation){
+    public Snake(Direction direction, Color bodyColor, Point startLocation, CellDataProviderIntf cellData){
         this.direction = direction;
         this.bodyColor = bodyColor;
+        this.cellData = cellData;
         
+        body = new ArrayList<>();
         body.add(startLocation);
     }
     

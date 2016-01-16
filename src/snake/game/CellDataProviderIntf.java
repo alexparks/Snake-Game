@@ -5,6 +5,8 @@
  */
 package snake.game;
 
+import java.awt.Point;
+
 /**
  *
  * @author Alex Parks
@@ -13,7 +15,7 @@ public interface CellDataProviderIntf {
     
     public int getCellWidth();
     public int getCellHeight();
-    public int getCellLocationX(Point);
-    
+    public int getCellSystemCoordinateX(Point cellLocation);
+    public int getCellSystemCoordinateY(Point cellLocation);
     
 }
