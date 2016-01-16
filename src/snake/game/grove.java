@@ -39,12 +39,22 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
 
     @Override
     public void timerTaskHandler() {
-        
+        if (snake != null) {
+            snake.move();
+        }
     }
 
     @Override
     public void keyPressedHandler(KeyEvent e) {
-        
+        if (e.getKeyCode() == KeyEvent.VK_UP) {
+            snake.setDirection(Direction.UP);
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            snake.setDirection(Direction.DOWN);
+        } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            snake.setDirection(Direction.LEFT);
+        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            snake.setDirection(Direction.RIGHT);
+        }
         
     }
 
