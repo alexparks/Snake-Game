@@ -36,7 +36,7 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
     }
 
     private int counter;
-    private int counterLimit = 7;
+    private int counterLimit = 5;
 
     @Override
     public void timerTaskHandler() {

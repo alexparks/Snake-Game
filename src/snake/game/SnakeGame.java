@@ -19,7 +19,7 @@ public class SnakeGame {
      */
     public static void main(String[] args) {
 //         ApplicationStarter.run("Alex's Snake Game", new Grove());
-         ApplicationStarter.run(new String[0], "Alex's Snake Game", new Dimension(1800, 3200), new Grove());
+         ApplicationStarter.run(new String[0], "Alex's Snake Game", new Dimension(3200, 1800), new Grove());
     }
     
 }

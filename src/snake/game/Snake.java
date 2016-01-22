@@ -34,6 +34,8 @@ public class Snake {
         
         // put the newHead into the body
         body.add(HEAD_POSITION, newHead);
+       
+        body.remove(body.size() - 1);
         
     }
 
@@ -56,6 +58,8 @@ public class Snake {
             body.add(new Point(startLocation.x - i, startLocation.y));
         }
     }
+    
+    
 
 //<editor-fold defaultstate="collapsed" desc="Properties">
     private ArrayList<Point> body;
