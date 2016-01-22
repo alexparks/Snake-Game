@@ -18,30 +18,43 @@ import java.awt.event.MouseEvent;
  * @author Alex Parks
  */
 public class Grove extends Environment implements LocationValidatorInt, CellDataProviderIntf {
-    
+
     private Grid grid;
     private Snake snake;
-    
-    
-    public Grove(){
-        
+
+    public Grove() {
+
         this.grid = new Grid(50, 30, 50, 50, new Point(100, 100), Color.DARK_GRAY);
         this.setBackground(Color.BLACK);
-        
+
         snake = new Snake(Direction.RIGHT, Color.WHITE, new Point(grid.getColumns() / 2, grid.getRows() / 2), this);
     }
-    
 
     @Override
     public void initializeEnvironment() {
 
     }
 
+    private int counter;
+    private int counterLimit = 7;
+
     @Override
     public void timerTaskHandler() {
-        if (snake != null) {
-            snake.move();
+        // if counter >= counterLimit
+        //   - move the snake
+        //   - reset the counter to 0
+        // else (it is less than counterLImit)
+        //   - increase teh counter by one
+
+        if (counter >= counterLimit) {
+            if (snake != null) {
+                snake.move();
+            }
+            counter = 0;
+        } else {
+            counter ++;
         }
+
     }
 
     @Override
@@ -55,17 +68,17 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             snake.setDirection(Direction.RIGHT);
         }
-        
+
     }
 
     @Override
     public void keyReleasedHandler(KeyEvent e) {
-        
+
     }
 
     @Override
     public void environmentMouseClicked(MouseEvent e) {
-        
+
     }
 
     @Override
@@ -76,24 +89,19 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
         graphics.fillRect(2600, 0, 100, 1700);
         graphics.fillRect(0, 1600, 2700, 100);
 
-
-        
-     
-        
         if (grid != null) {
             grid.paintComponent(graphics);
         }
-        
+
         if (snake != null) {
             snake.draw(graphics);
         }
-        
+
     }
 
     @Override
     public Point validate(Point proposedLocation) {
 
-        
         return proposedLocation;
     }
 
@@ -102,21 +110,21 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
     public int getCellWidth() {
         return grid.getCellWidth();
     }
-    
+
     @Override
     public int getCellHeight() {
         return grid.getCellHeight();
     }
-    
+
     @Override
     public int getCellSystemCoordinateX(Point cellLocation) {
         return grid.getCellSystemCoordinate(cellLocation).x;
     }
-    
+
     @Override
     public int getCellSystemCoordinateY(Point cellLocation) {
         return grid.getCellSystemCoordinate(cellLocation).y;
     }
 //</editor-fold>
-    
+
 }

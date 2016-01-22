@@ -39,7 +39,7 @@ public class Snake {
 
     public void draw(Graphics graphics) {
         graphics.setColor(bodyColor);
-        for (Point cellLocation : body) {
+        for (Point cellLocation : getBodyCopy()) {
             graphics.fill3DRect(cellData.getCellSystemCoordinateX(cellLocation),
                     cellData.getCellSystemCoordinateY(cellLocation), cellData.getCellWidth(), cellData.getCellHeight(), true);
         }
@@ -61,6 +61,10 @@ public class Snake {
     private ArrayList<Point> body;
     private Direction direction;
     private Color bodyColor;
+
+    private ArrayList<Point> getBodyCopy() {
+        return (ArrayList<Point>) body.clone();
+    }
 
     /**
      * @return the body
@@ -110,5 +114,6 @@ public class Snake {
         return body.get(HEAD_POSITION);
     }
 //</editor-fold>
+
 
 }
