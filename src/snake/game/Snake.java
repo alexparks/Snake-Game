@@ -38,6 +38,7 @@ public class Snake {
         body.remove(body.size() - 1);
         
     }
+    
 
     public void draw(Graphics graphics) {
         graphics.setColor(bodyColor);
