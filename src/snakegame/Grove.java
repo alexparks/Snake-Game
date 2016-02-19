@@ -8,6 +8,7 @@ package snakegame;
 import environment.Environment;
 import grid.Grid;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
@@ -24,6 +25,7 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
     private Snake snake;
     
     private ArrayList<Item> items;
+    private int score;
 
     public Grove() {
         this.grid = new Grid(50, 30, 50, 50, new Point(100, 100), Color.DARK_GRAY);
@@ -43,7 +45,7 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
     }
 
     private int counter;
-    private int counterLimit = 5;
+    private int counterLimit = 3;
 
     @Override
     public void timerTaskHandler() {
@@ -69,7 +71,10 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
             for (Item item : items){
                 if (item.getLocation().equals(snake.getHead())) {
                     //Add a body block
+                    score += 10;
                     snake.grow(2);
+                    item.setX((int)(Math.random() * grid.getColumns()));
+                    item.setY((int)(Math.random() * grid.getRows()));
                 }
             }
         }
@@ -120,6 +125,9 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
                 item.draw(graphics);
             }
         }
+        
+        graphics.setFont(new Font("Calibri", Font.BOLD, 50));
+        graphics.drawString("Score : " + score, 50, 50);
 
     }
 
