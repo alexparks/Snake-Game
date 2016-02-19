@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package snake.game;
+package snakegame;
 
 import environment.Environment;
 import grid.Grid;
@@ -12,6 +12,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,13 +22,19 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
 
     private Grid grid;
     private Snake snake;
+    
+    private ArrayList<Item> items;
 
     public Grove() {
-
         this.grid = new Grid(50, 30, 50, 50, new Point(100, 100), Color.DARK_GRAY);
         this.setBackground(Color.BLACK);
 
         snake = new Snake(Direction.RIGHT, Color.WHITE, new Point(grid.getColumns() / 2, grid.getRows() / 2), this);
+
+        items = new ArrayList<>();
+        items.add(new Item(22, 3, Item.TYPE_FOOD, this));
+        items.add(new Item(2, 33, Item.TYPE_FOOD, this));
+        items.add(new Item(5, 23, Item.TYPE_FOOD, this));
     }
 
     @Override
@@ -49,14 +56,26 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
         if (counter >= counterLimit) {
             if (snake != null) {
                 snake.move();
+                checkIntersections();
             }
             counter = 0;
         } else {
             counter ++;
         }
-
     }
 
+    public void checkIntersections(){
+         if (items != null) {
+            for (Item item : items){
+                if (item.getLocation().equals(snake.getHead())) {
+                    //Add a body block
+                    snake.grow(2);
+                }
+            }
+        }
+    }
+    
+    
     @Override
     public void keyPressedHandler(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP) {
@@ -68,7 +87,6 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             snake.setDirection(Direction.RIGHT);
         }
-
     }
 
     @Override
@@ -96,12 +114,17 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
         if (snake != null) {
             snake.draw(graphics);
         }
+        
+        if (items != null) {
+            for (Item item : items){
+                item.draw(graphics);
+            }
+        }
 
     }
 
     @Override
     public Point validate(Point proposedLocation) {
-
         return proposedLocation;
     }
 

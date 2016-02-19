@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package snake.game;
+package snakegame;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -20,7 +20,7 @@ public class Snake {
 
     public void move() {
         Point newHead = new Point(getHead());
-        
+
         //adjust the newHead location, depending on direction
         if (direction == Direction.UP) {
             newHead.y--;
@@ -31,14 +31,22 @@ public class Snake {
         } else if (direction == Direction.LEFT) {
             newHead.x--;
         }
-        
+
         // put the newHead into the body
         body.add(HEAD_POSITION, newHead);
-       
-        body.remove(body.size() - 1);
-        
+
+        if (growthCounter > 0) {
+            growthCounter--;
+        } else {
+            body.remove(body.size() - 1);
+        }
     }
-    
+
+    private int growthCounter;
+
+    public void grow(int value) {
+        growthCounter += value;
+    }
 
     public void draw(Graphics graphics) {
         graphics.setColor(bodyColor);
@@ -59,8 +67,6 @@ public class Snake {
             body.add(new Point(startLocation.x - i, startLocation.y));
         }
     }
-    
-    
 
 //<editor-fold defaultstate="collapsed" desc="Properties">
     private ArrayList<Point> body;
@@ -114,11 +120,10 @@ public class Snake {
     }
 
     public static int HEAD_POSITION = 0;
-    
-    private Point getHead() {
+
+    public Point getHead() {
         return body.get(HEAD_POSITION);
     }
 //</editor-fold>
-
 
 }
