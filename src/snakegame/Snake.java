@@ -66,13 +66,33 @@ public class Snake {
         for (int i = 1; i < 1; i++) {
             body.add(new Point(startLocation.x - i, startLocation.y));
         }
+        alive = true;
     }
 
+    public boolean selfHit(){
+        return getTail().contains(getHead());
+    }
+    
 //<editor-fold defaultstate="collapsed" desc="Properties">
     private ArrayList<Point> body;
     private Direction direction;
     private Color bodyColor;
+    private boolean alive;
 
+    public static int HEAD_POSITION = 0;
+
+    public Point getHead() {
+        return body.get(HEAD_POSITION);
+    }
+
+    private ArrayList<Point> getTail(){
+        ArrayList<Point> tail = new ArrayList<>();
+        for (int i = 1; i < body.size(); i++) {
+            tail.add(body.get(i));
+        }
+        return tail;
+    }
+    
     private ArrayList<Point> getBodyCopy() {
         return (ArrayList<Point>) body.clone();
     }
@@ -119,11 +139,20 @@ public class Snake {
         this.bodyColor = bodyColor;
     }
 
-    public static int HEAD_POSITION = 0;
-
-    public Point getHead() {
-        return body.get(HEAD_POSITION);
+    /**
+     * @return the alive
+     */
+    public boolean isAlive() {
+        return alive;
     }
+
+    /**
+     * @param alive the alive to set
+     */
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
 //</editor-fold>
 
 }
