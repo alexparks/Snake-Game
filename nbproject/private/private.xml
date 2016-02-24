@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Alex%20Parks/Documents/NetBeansProjects/Snake%20Game/src/snake/game/SnakeGame.java</file>
-            <file>file:/C:/Users/Alex%20Parks/Documents/NetBeansProjects/Snake%20Game/src/snake/game/Item.java</file>
-            <file>file:/C:/Users/Alex%20Parks/Documents/NetBeansProjects/Snake%20Game/src/snake/game/Grove.java</file>
-            <file>file:/C:/Users/Alex%20Parks/Documents/NetBeansProjects/Snake%20Game/src/snake/game/Snake.java</file>
+            <file>file:/C:/Users/Alex%20Parks/Documents/NetBeansProjects/Snake%20Game/src/snakegame/Item.java</file>
+            <file>file:/C:/Users/Alex%20Parks/Documents/NetBeansProjects/Snake%20Game/src/snakegame/Grove.java</file>
+            <file>file:/C:/Users/Alex%20Parks/Documents/NetBeansProjects/Snake%20Game/src/snakegame/SnakeGame.java</file>
+            <file>file:/C:/Users/Alex%20Parks/Documents/NetBeansProjects/Snake%20Game/src/snakegame/Snake.java</file>
         </group>
     </open-files>
 </project-private>

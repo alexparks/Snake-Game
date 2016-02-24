@@ -63,7 +63,7 @@ public class Snake {
 
         body = new ArrayList<>();
         body.add(startLocation);
-        for (int i = 1; i < 4; i++) {
+        for (int i = 1; i < 1; i++) {
             body.add(new Point(startLocation.x - i, startLocation.y));
         }
     }
