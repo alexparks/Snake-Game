@@ -6,6 +6,7 @@
 package snakegame;
 
 import images.ResourceTools;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -18,10 +19,17 @@ public class Item {
 
     public void draw(Graphics graphics) {
         if (visible) {
+            if (image == null) {
+                graphics.setColor(Color.GRAY);
+                graphics.fillRect(cellData.getCellSystemCoordinateX(getLocation()),
+                        cellData.getCellSystemCoordinateY(getLocation()),
+                        cellData.getCellWidth(), cellData.getCellHeight());
+            } else {
             graphics.drawImage(image,
                     cellData.getCellSystemCoordinateX(getLocation()),
                     cellData.getCellSystemCoordinateY(getLocation()),
                     cellData.getCellWidth(), cellData.getCellHeight(), null);
+            }
         }
     }
 
@@ -35,8 +43,6 @@ public class Item {
         this.type = type;
         if (type.equals(TYPE_FOOD)) {
             image = ResourceTools.loadImageFromResource("snakegame/FOOD.png");
-        } else if (type.equals(TYPE_BARRIER)) {
-            image = ResourceTools.loadImageFromResource("snakegame/barrier.png");
         } else if (type.equals(TYPE_POWER_UP)) {
             image = ResourceTools.loadImageFromResource("snakegame/PowerUp.png");
         }

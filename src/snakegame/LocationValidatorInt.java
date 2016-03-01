@@ -12,7 +12,5 @@ import java.awt.Point;
  * @author Alex Parks
  */
 public interface LocationValidatorInt {
-    
     public Point validate(Point proposedLocation);
-    
 }

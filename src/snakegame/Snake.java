@@ -56,7 +56,8 @@ public class Snake {
         }
     }
 
-    public Snake(Direction direction, Color bodyColor, Point startLocation, CellDataProviderIntf cellData) {
+    public Snake(Direction direction, Color bodyColor, Point startLocation, 
+            CellDataProviderIntf cellData) {
         this.direction = direction;
         this.bodyColor = bodyColor;
         this.cellData = cellData;

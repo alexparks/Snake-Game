@@ -5,6 +5,7 @@
  */
 package snakegame;
 
+import audio.AudioPlayer;
 import environment.Environment;
 import grid.Grid;
 import java.awt.Color;
@@ -27,6 +28,7 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
 
     private ArrayList<Item> cherryFoodItems;
     private ArrayList<Item> powerUpItems;
+    private ArrayList<Item> barriers;
     long timeToDisablePowerUps;
     private int score;
 
@@ -62,10 +64,18 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
 
         powerUpItems = new ArrayList<>();
         powerUpItems.add(new Item(10, 16, Item.TYPE_POWER_UP, false, this));
-    }
 
-    @Override
-    public void initializeEnvironment() {
+        barriers = new ArrayList<>();
+        barriers.add(new Item(5, 5, Item.TYPE_BARRIER, true, this));
+
+        if (snake.isAlive())  {
+            AudioPlayer.play("/snakegame/snake_music.wav", -1);
+        }
+    
+}
+
+@Override
+        public void initializeEnvironment() {
 
     }
 
@@ -73,7 +83,7 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
     private int counterLimit = 8;
 
     @Override
-    public void timerTaskHandler() {
+        public void timerTaskHandler() {
         // if counter >= counterLimit
         //   - move the snake
         //   - reset the counter to 0
@@ -96,6 +106,7 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
 
                     checkIntersectionsF();
                     checkIntersectionsP();
+                    checkIntersectionsB();
                 }
                 counter = 0;
             } else {
@@ -113,6 +124,7 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
                     setScore(getScore() + 10);
                     snake.grow(2);
                     item.setLocation(getRandomGridLocation());
+//                    AudioPlayer.play("");
                 }
             }
         }
@@ -139,6 +151,26 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
             }
         }
     }
+    
+    public void checkIntersectionsB() {
+        if ((barriers != null) && (snake != null)){
+            for (Item barrier : barriers) {
+                if (barrier.getLocation().equals(snake.getHead())) {
+                    snake.setAlive(false);
+                }
+            }
+        }
+        
+        //check if the snake's head is outsid the boundary of the grid
+        if (snake != null) {
+            if ((snake.getHead().x <= -1) ||
+                (snake.getHead().x >= grid.getColumns()) ||
+                (snake.getHead().y <= -1) ||
+                (snake.getHead().y >= grid.getRows())){
+                snake.setAlive(false);
+            }
+        }
+    }
 
     private void setPowerUpVisibilty(boolean visible) {
         if (powerUpItems != null) {
@@ -158,7 +190,7 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
 ////        }
 //    }
     @Override
-    public void keyPressedHandler(KeyEvent e) {
+        public void keyPressedHandler(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP) {
             snake.setDirection(Direction.UP);
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -171,22 +203,23 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
     }
 
     @Override
-    public void keyReleasedHandler(KeyEvent e) {
+        public void keyReleasedHandler(KeyEvent e) {
 
     }
 
     @Override
-    public void environmentMouseClicked(MouseEvent e) {
+        public void environmentMouseClicked(MouseEvent e) {
 
     }
 
     @Override
-    public void paintEnvironment(Graphics graphics) {
+        public void paintEnvironment(Graphics graphics) {
         graphics.setColor(Color.darkGray);
         graphics.fillRect(0, 0, 100, 1700);
         graphics.fillRect(0, 0, 2700, 100);
         graphics.fillRect(2600, 0, 100, 1700);
         graphics.fillRect(0, 1600, 2700, 100);
+        
 
         if (grid != null) {
             grid.paintComponent(graphics);
@@ -194,6 +227,12 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
 
         if (snake != null) {
             snake.draw(graphics);
+        }
+
+        if (barriers != null) {
+            for (Item item : barriers) {
+                item.draw(graphics);
+            }
         }
 
         if (cherryFoodItems != null) {
@@ -215,28 +254,28 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
     }
 
     @Override
-    public Point validate(Point proposedLocation) {
+        public Point validate(Point proposedLocation) {
         return proposedLocation;
     }
 
     //<editor-fold defaultstate="collapsed" desc="CellDataProviderIntf">
     @Override
-    public int getCellWidth() {
+        public int getCellWidth() {
         return grid.getCellWidth();
     }
 
     @Override
-    public int getCellHeight() {
+        public int getCellHeight() {
         return grid.getCellHeight();
     }
 
     @Override
-    public int getCellSystemCoordinateX(Point cellLocation) {
+        public int getCellSystemCoordinateX(Point cellLocation) {
         return grid.getCellSystemCoordinate(cellLocation).x;
     }
 
     @Override
-    public int getCellSystemCoordinateY(Point cellLocation) {
+        public int getCellSystemCoordinateY(Point cellLocation) {
         return grid.getCellSystemCoordinate(cellLocation).y;
     }
 //</editor-fold>
