@@ -34,6 +34,20 @@ public class Item {
     }
 
 //<editor-fold defaultstate="collapsed" desc="Constructor">
+    public Item(Point location, String type, boolean visible, CellDataProviderIntf cellData) {
+        this.x = location.x;
+        this.y = location.y;
+        this.visible = visible;
+        this.cellData = cellData;
+
+        this.type = type;
+        if (type.equals(TYPE_FOOD)) {
+            image = ResourceTools.loadImageFromResource("snakegame/FOOD.png");
+        } else if (type.equals(TYPE_POWER_UP)) {
+            image = ResourceTools.loadImageFromResource("snakegame/PowerUp.png");
+        }
+    }
+
     public Item(int x, int y, String type, boolean visible, CellDataProviderIntf cellData) {
         this.x = x;
         this.y = y;

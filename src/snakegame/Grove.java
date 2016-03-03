@@ -68,6 +68,15 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
         barriers = new ArrayList<>();
         barriers.add(new Item(5, 5, Item.TYPE_BARRIER, true, this));
 
+        for (int i = 0; i < 30; i++) {
+            barriers.add(new Item(getRandomGridLocation(), Item.TYPE_BARRIER, true, this));
+        }
+//        for (int row = 0; row < 5; row++) {
+//            for (int column = 0; column < grid.getColumns(); column++) {
+//                barriers.add(new Item(column, row, Item.TYPE_BARRIER, true, this));
+//            }
+//        }
+
         if (snake.isAlive()) {
             AudioPlayer.play("/snakegame/snake_music.wav", -1);
         }
@@ -125,14 +134,31 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
                     snake.grow(4);
                     item.setLocation(getRandomGridLocation());
                     playRandomRewardSound();
-                    
+
                 }
             }
         }
     }
 
     public Point getRandomGridLocation() {
-        return new Point((int) (Math.random() * grid.getColumns()), (int) (Math.random() * grid.getRows()));
+        // keep generating new locations until one does not match a barrier location
+        boolean badLocation = true;
+        Point location;
+
+        do {
+            location = new Point((int) (Math.random() * grid.getColumns()), (int) (Math.random() * grid.getRows()));
+            badLocation = false;
+            for (Item barrier : barriers){
+                if (barrier.equals(location)) {
+                    badLocation = true;
+                    break;
+                }
+            }
+            
+//            badLocation = badLocation || snake.getHead().equals(location);
+        } while (badLocation);
+
+        return location;
     }
 
     public void checkIntersectionsP() {
@@ -186,7 +212,6 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
         }
     }
 
-
 //    public boolean checkScore() {
 //        return ((getScore() > 0) && ((getScore() % 100) == 0));
 ////        if (score + 1 % 101 == 0) {
@@ -231,10 +256,11 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
             if (snake.getDirection() != Direction.LEFT) {
                 snake.setDirection(Direction.RIGHT);
             }
-        } //else if (e.getKeyCode() == KeyEvent.VK_F && KeyEvent.VK_V) {
-//            counterLimit--;
-//        }
-
+        } else if (e.getKeyCode() == KeyEvent.VK_C) {
+            for (Item food : cherryFoodItems){
+                food.setLocation(getRandomGridLocation());
+            }
+        }
     }
 
     @Override
@@ -291,8 +317,7 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
     }
 
     @Override
-    public Point validate(Point proposedLocation
-    ) {
+    public Point validate(Point proposedLocation) {
         return proposedLocation;
     }
 
@@ -334,9 +359,7 @@ public class Grove extends Environment implements LocationValidatorInt, CellData
             AudioPlayer.play("/snakegame/burp3.wav");
         } else {
             AudioPlayer.play("/snakegame/burp2.wav");
-        } 
-        
-        
+        }
     }
 //                    if (cherrySoundInt() * 10 == ) {
 //doubl
