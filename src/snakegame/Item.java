@@ -25,10 +25,10 @@ public class Item {
                         cellData.getCellSystemCoordinateY(getLocation()),
                         cellData.getCellWidth(), cellData.getCellHeight());
             } else {
-            graphics.drawImage(image,
-                    cellData.getCellSystemCoordinateX(getLocation()),
-                    cellData.getCellSystemCoordinateY(getLocation()),
-                    cellData.getCellWidth(), cellData.getCellHeight(), null);
+                graphics.drawImage(image,
+                        cellData.getCellSystemCoordinateX(getLocation()),
+                        cellData.getCellSystemCoordinateY(getLocation()),
+                        cellData.getCellWidth(), cellData.getCellHeight(), null);
             }
         }
     }
@@ -45,6 +45,8 @@ public class Item {
             image = ResourceTools.loadImageFromResource("snakegame/FOOD.png");
         } else if (type.equals(TYPE_POWER_UP)) {
             image = ResourceTools.loadImageFromResource("snakegame/PowerUp.png");
+        } else if (type.equals(TYPE_BARRIER)) {
+            getRandomBarrier();
         }
     }
 
@@ -59,9 +61,27 @@ public class Item {
             image = ResourceTools.loadImageFromResource("snakegame/FOOD.png");
         } else if (type.equals(TYPE_POWER_UP)) {
             image = ResourceTools.loadImageFromResource("snakegame/PowerUp.png");
+        } else if (type.equals(TYPE_BARRIER)) {
+//            image = ResourceTools.loadImageFromResource("snakegame/stump.png");
+            getRandomBarrier();
         }
+
     }
 //</editor-fold>
+
+    private void getRandomBarrier() {
+        //get a random image for the barrier
+        double number = Math.random();
+        if (number <= .3) {
+            image = ResourceTools.loadImageFromResource("snakegame/stump.png");
+        } else if (number <= .4) {
+            image = ResourceTools.loadImageFromResource("snakegame/mushroom.png");
+        } else if (number <= .7) {
+            image = ResourceTools.loadImageFromResource("snakegame/stone.png");
+        } else if (number <= 1) {
+            image = ResourceTools.loadImageFromResource("snakegame/plant.png");
+        }
+    }
 
 //<editor-fold defaultstate="collapsed" desc="Properties">
     public static final String TYPE_FOOD = "FOOD";
